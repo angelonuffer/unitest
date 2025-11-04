@@ -1,0 +1,6 @@
+# Dependencies used for local testing
+código/deps/
+
+# Temporary files
+*.tmp
+.DS_Store

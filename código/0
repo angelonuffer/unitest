@@ -1,0 +1,86 @@
+lista = https://cdn.jsdelivr.net/gh/angelonuffer/lista@32aa798d17afce6fac77e4b77758c9f94e7cbb9e/código/0
+processo = https://cdn.jsdelivr.net/gh/angelonuffer/processo@be3f9ea44ab58100e462ef0b70b1042df96365bf/código/0
+
+compare_lists = { list_1 list_2 } =>
+  | list_1[.] != list_2[.] = 0
+  | list_1[.] == 0 = 1
+  | list_1[0] != list_2[0] = 0
+  | compare_lists({
+    list_1: list_1[1:]
+    list_2: list_2[1:]
+  })
+
+display = { passed messages } => processo.nodejs({
+  comandos: [
+    ...lista.mapear({
+      lista: messages
+      função: message => processo.escreva(message)
+    })
+    processo.escreva(passed + "/" + messages[.] + " tests passed.")
+    passed == messages[.] ?
+      processo.saia(0)
+    :
+      processo.saia(1)
+  ]
+})
+
+{
+  describe: { name tests } => destination => (
+    result = {
+      passed: lista.reduzir({
+        lista: lista.mapear({
+          lista: tests
+          função: result => (result("describe")).passed
+        })
+        função: args => args[0] + args[1]
+      })
+      messages: lista.planificar(lista.mapear({
+        lista: tests
+        função: result => lista.mapear({
+          lista: (result("describe")).messages
+          função: message => [
+            name
+            " | "
+            message
+          ] * ""
+        })
+      }))
+    }
+    destination == "describe" ? result : display(result)
+  )
+  equals: args => destination => (
+    passed = args[0] == args[1] ? 1 : 0
+    result = {
+      passed
+      messages: [
+        passed == 1 ? "ok" : [
+          "Expected "
+          "" + args[0]
+          " to equal "
+          "" + args[1]
+          "."
+        ] * ""
+      ]
+    }
+    destination == "describe" ? result : display(result)
+  )
+  lists_equal: args => destination => (
+    passed = compare_lists({
+      list_1: args[0]
+      list_2: args[1]
+    }) ? 1 : 0
+    result = {
+      passed
+      messages: [
+        passed == 1 ? "ok" : [
+          "Expected ["
+          args[0] * ", "
+          "] to equal ["
+          args[1] * ", "
+          "]."
+        ] * ""
+      ]
+    }
+    destination == "describe" ? result : display(result)
+  )
+}

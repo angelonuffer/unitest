@@ -1,0 +1,9 @@
+unitest = ../código/0
+
+unitest.describe({
+  name: "Failing Tests"
+  tests: [
+    unitest.equals([ 5 6 ])
+    unitest.lists_equal([ [ 1 2 3 ] [ 1 2 4 ] ])
+  ]
+})
