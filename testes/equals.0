@@ -1,0 +1,9 @@
+unitest = ../código/0
+
+unitest.describe({
+  name: "Equals"
+  tests: [
+    unitest.equals([ 5 5 ])
+    unitest.equals([ "abc" "abc" ])
+  ]
+})

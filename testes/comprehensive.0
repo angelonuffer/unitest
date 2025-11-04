@@ -1,0 +1,28 @@
+unitest = ../código/0
+
+unitest.describe({
+  name: "Comprehensive Test Suite"
+  tests: [
+    unitest.describe({
+      name: "Nested - Numbers"
+      tests: [
+        unitest.equals([ 1 1 ])
+        unitest.equals([ 2 2 ])
+      ]
+    })
+    unitest.describe({
+      name: "Nested - Strings"
+      tests: [
+        unitest.equals([ "hello" "hello" ])
+        unitest.equals([ "world" "world" ])
+      ]
+    })
+    unitest.describe({
+      name: "Nested - Lists"
+      tests: [
+        unitest.lists_equal([ [ 1 2 ] [ 1 2 ] ])
+        unitest.lists_equal([ [ "x" "y" ] [ "x" "y" ] ])
+      ]
+    })
+  ]
+})
