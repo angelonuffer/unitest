@@ -42,8 +42,19 @@ unitest.describe({
 
 **Prerequisites**: Node.js version 22 or higher and the [0 language runtime](https://github.com/angelonuffer/0).
 
+First, clone the 0 language runtime:
 ```bash
-node 0/código/0_node.js testes/equals.0 | node
+git clone https://github.com/angelonuffer/0.git
+```
+
+Then run tests:
+```bash
+node 0/código/0_node.js <path-to-unitest>/testes/equals.0 | node
+```
+
+Example:
+```bash
+node 0/código/0_node.js unitest/testes/equals.0 | node
 ```
 
 ## Output
