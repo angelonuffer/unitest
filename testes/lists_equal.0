@@ -3,6 +3,14 @@ unitest = ../código/0
 unitest.describe({
   name: "Lists Equal"
   tests: [
+    unitest.describe({
+      name: "List Comparisons"
+      tests: [
+        unitest.lists_equal([ [ ] [ ] ])
+        unitest.lists_equal([ [ 1 ] [ 1 ] ])
+        unitest.lists_equal([ [ 1 2 3 4 5 ] [ 1 2 3 4 5 ] ])
+      ]
+    })
     unitest.lists_equal([ [ 1 2 3 ] [ 1 2 3 ] ])
     unitest.lists_equal([ [ ] [ ] ])
     unitest.lists_equal([ [ "a" "b" "c" ] [ "a" "b" "c" ] ])

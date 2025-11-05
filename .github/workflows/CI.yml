@@ -1,4 +1,4 @@
-name: IC
+name: CI
 on:
   push:
     branches:
@@ -7,12 +7,12 @@ on:
     branches:
       - main
 jobs:
-  testar:
+  test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
       with:
-        path: atual
+        path: current
     - uses: actions/checkout@v4
       with:
         repository: angelonuffer/0
@@ -21,4 +21,4 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: '22'
-    - run: node 0/código/0_node.js atual/testes/all_features.0 node | node
+    - run: node 0/código/0_node.js current/testes/0 node | node

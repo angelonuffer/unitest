@@ -3,6 +3,21 @@ unitest = ../código/0
 unitest.describe({
   name: "Equals"
   tests: [
+    unitest.describe({
+      name: "Basic Equality"
+      tests: [
+        unitest.equals([ 42 42 ])
+        unitest.equals([ "test" "test" ])
+        unitest.equals([ 0 0 ])
+      ]
+    })
+    unitest.describe({
+      name: "String Lists"
+      tests: [
+        unitest.lists_equal([ [ "a" ] [ "a" ] ])
+        unitest.lists_equal([ [ "hello" "world" ] [ "hello" "world" ] ])
+      ]
+    })
     unitest.equals([ 5 5 ])
     unitest.equals([ "abc" "abc" ])
   ]
