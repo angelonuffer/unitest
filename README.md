@@ -16,13 +16,11 @@ An English wrapper for the Portuguese [uniteste](https://github.com/angelonuffer
 
 ### API Translation
 
-| English (unitest) | Portuguese (uniteste) |
-|-------------------|----------------------|
-| `describe`        | `descrever`          |
-| `equals`          | `iguais`             |
-| `lists_equal`     | `listas_iguais`      |
-| `name`            | `nome`               |
-| `tests`           | `testes`             |
+- `describe` → `descrever`
+- `equals` → `iguais`
+- `lists_equal` → `listas_iguais`
+- `name` → `nome`
+- `tests` → `testes`
 
 ## Example
 
