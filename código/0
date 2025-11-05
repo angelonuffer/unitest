@@ -1,10 +1,99 @@
 uniteste = https://cdn.jsdelivr.net/gh/angelonuffer/uniteste@ef42f88d77a4339a46bae0f8a18f5dc9424aa330/código/0
+lista = https://cdn.jsdelivr.net/gh/angelonuffer/lista@32aa798d17afce6fac77e4b77758c9f94e7cbb9e/código/0
+processo = https://cdn.jsdelivr.net/gh/angelonuffer/processo@be3f9ea44ab58100e462ef0b70b1042df96365bf/código/0
+
+compara_listas = { lista_1 lista_2 } =>
+  | lista_1[.] != lista_2[.] = 0
+  | lista_1[.] == 0 = 1
+  | lista_1[0] != lista_2[0] = 0
+  | compara_listas({
+    lista_1: lista_1[1:]
+    lista_2: lista_2[1:]
+  })
+
+exibir = { passaram mensagens } => ([
+  "const translate = (msg) => {"
+  "  if (msg === 'ok') return 'ok';"
+  "  let result = msg;"
+  "  result = result.replace('Esperava que ', 'Expected ');"
+  "  result = result.replace(' fosse igual a ', ' to equal ');"
+  "  result = result.replace(' testes passaram.', ' tests passed.');"
+  "  return result;"
+  "};"
+  ...lista.mapear({
+    lista: mensagens
+    função: mensagem => [
+      "console.log(translate('"
+      mensagem
+      "'));"
+    ] * ""
+  })
+  "console.log(translate('"
+  passaram + "/" + mensagens[.] + " testes passaram."
+  "'));"
+  passaram == mensagens[.] ?
+    "process.exit(0);"
+  :
+    "process.exit(1);"
+] * "")
 
 {
-  describe: { name tests } => uniteste.descrever({
-    nome: name
-    testes: tests
-  })
-  equals: uniteste.iguais
-  lists_equal: uniteste.listas_iguais
+  describe: { name tests } => destino => (
+    resultado = {
+      passaram: lista.reduzir({
+        lista: lista.mapear({
+          lista: tests
+          função: resultado => (resultado("descrever")).passaram
+        })
+        função: args => args[0] + args[1]
+      })
+      mensagens: lista.planificar(lista.mapear({
+        lista: tests
+        função: resultado => lista.mapear({
+          lista: (resultado("descrever")).mensagens
+          função: mensagem => [
+            name
+            " | "
+            mensagem
+          ] * ""
+        })
+      }))
+    }
+    destino == "descrever" ? resultado : exibir(resultado)
+  )
+  equals: args => destino => (
+    passaram = args[0] == args[1] ? 1 : 0
+    resultado = {
+      passaram
+      mensagens: [
+        passaram == 1 ? "ok" : [
+          "Esperava que "
+          "" + args[0]
+          " fosse igual a "
+          "" + args[1]
+          "."
+        ] * ""
+      ]
+    }
+    destino == "descrever" ? resultado : exibir(resultado)
+  )
+  lists_equal: args => destino => (
+    passaram = compara_listas({
+      lista_1: args[0]
+      lista_2: args[1]
+    }) ? 1 : 0
+    resultado = {
+      passaram
+      mensagens: [
+        passaram == 1 ? "ok" : [
+          "Esperava que ["
+          args[0] * ", "
+          "] fosse igual a ["
+          args[1] * ", "
+          "]."
+        ] * ""
+      ]
+    }
+    destino == "descrever" ? resultado : exibir(resultado)
+  )
 }
