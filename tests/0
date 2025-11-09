@@ -1,6 +1,6 @@
 unitest = ../code/0
 
-unitest.show(
+unitest.display(
   unitest.describe({
     name: "All Features Demo"
     tests: [

@@ -21,5 +21,5 @@ translate = assert_function => args => (
   })
   equals: translate(uniteste.iguais)
   lists_equal: translate(uniteste.listas_iguais)
-  show: uniteste.exibir
+  display: uniteste.exibir
 }
