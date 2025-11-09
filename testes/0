@@ -1,10 +1,12 @@
 unitest = ../código/0
 
-unitest.describe({
-  name: "All Features Demo"
-  tests: [
-    comprehensive.0
-    equals.0
-    lists_equal.0
-  ]
-})
+unitest.show(
+  unitest.describe({
+    name: "All Features Demo"
+    tests: [
+      comprehensive.0
+      equals.0
+      lists_equal.0
+    ]
+  })
+)
