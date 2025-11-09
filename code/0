@@ -1,11 +1,25 @@
 uniteste = https://cdn.jsdelivr.net/gh/angelonuffer/uniteste@14d92a22ac74557440c1918cd27b4e1b0fd3f492/código/0
 
+translate = assert_function => args => (
+  result = assert_function(args)
+  result.passaram == 0 ? {
+    passaram: 0
+    mensagens: [[
+      "Expected "
+      args[0]
+      " to be equal to "
+      args[1]
+      "."
+    ]]
+  } : result
+)
+
 {
   describe: { name tests } => uniteste.descrever({
     nome: name
     testes: tests
   })
-  equals: uniteste.iguais
-  lists_equal: uniteste.listas_iguais
+  equals: translate(uniteste.iguais)
+  lists_equal: translate(uniteste.listas_iguais)
   show: uniteste.exibir
 }
