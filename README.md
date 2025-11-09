@@ -1,66 +1,36 @@
 # unitest
 
 An English wrapper for the Portuguese [uniteste](https://github.com/angelonuffer/uniteste) testing framework for the [0 programming language](https://github.com/angelonuffer/0).
+It allows grouping test suites, making assertions, and printing a summary of the results.
 
-## Overview
+## equals : function
 
-`unitest` provides an English API that delegates to `uniteste`, translating parameters from English to Portuguese and results from Portuguese to English.
+`values : list< number | text >` => `unitest : object`
 
-## API
+Compares two values (simple equality).
 
-### Functions
+## lists_equal : function
 
-- `unitest.describe({ name tests })`: Groups tests under a name. Returns an object that can be displayed or nested.
-- `unitest.equals([obtained expected])`: Compares two values (simple equality) and generates success or failure message.
-- `unitest.lists_equal([list1 list2])`: Compares lists element by element and generates appropriate message.
+`lists : list<list< number | text >>` => `unitest : object`
 
-### API Translation
+Compares lists element by element.
 
-- `describe` → `descrever`
-- `equals` → `iguais`
-- `lists_equal` → `listas_iguais`
-- `name` → `nome`
-- `tests` → `testes`
+## describe : function
 
-## Example
+`{ name : text tests : list<unitest> }` => `unitest : object`
 
-```0
-unitest = https://cdn.jsdelivr.net/gh/angelonuffer/unitest@main/código/0
+Groups tests under a name.
 
-unitest.describe({
-  name: "Arithmetic"
-  tests: [
-    unitest.equals([(1 + 1) 2])
-    unitest.equals([(2 + 3) 5])
-  ]
-})
-```
+## display : function
 
-## Running Tests
+`unitest : object` => `code : text`
 
-**Prerequisites**: Node.js version 22 or higher and the [0 language runtime](https://github.com/angelonuffer/0).
+Receives an object in the unitest format and returns the Node.js code to execute the tests.
 
-First, clone the 0 language runtime:
-```bash
-git clone https://github.com/angelonuffer/0.git
-```
+- The process prints messages per test and returns exit code `0` if all passed, or `1` otherwise.
+- Failure messages describe the obtained value and the expected value.
 
-Then run tests:
-```bash
-node 0/código/0_node.js <path-to-unitest>/testes/equals.0 | node
-```
+## unitest : object
 
-Example:
-```bash
-node 0/código/0_node.js unitest/testes/equals.0 | node
-```
-
-## Output
-
-- The test runner prints messages per test and returns exit code `0` if all passed, or `1` otherwise.
-- Failure messages describe the obtained value and the expected value in English.
-
-Examples:
-- Success: `ok`
-- Failure: `Expected 5 to equal 6.`
-- Summary: `2/2 tests passed.`
+- `passed : number` - Number of tests that passed.
+- `messages : list<list<text>>` - Messages returned by the tests.
