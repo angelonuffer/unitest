@@ -21,4 +21,4 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: '22'
-    - run: node 0/código/0_node.js current/testes/0 node | node
+    - run: node 0/código/0_node.js current/tests/0 node | node

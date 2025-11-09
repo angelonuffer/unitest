@@ -1,4 +1,4 @@
-unitest = ../código/0
+unitest = ../code/0
 
 unitest.describe({
   name: "Comprehensive Test Suite"
